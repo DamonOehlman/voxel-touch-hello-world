@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        version="2.0.0.0" id="voxel-hello-world">
+
+  <name>Voxel.js</name>
+  <description>Voxel.js Blackberry Client</description>
+  <author href="http://www.sidelab.com/">Damon Oehlman</author>
+
+  <rim:permissions>
+    <rim:permit>read_device_identifying_information</rim:permit>
+    <rim:permit>access_shared</rim:permit>
+    <rim:permit>access_geolocation</rim:permit>
+    <rim:permit>use_camera</rim:permit>
+  </rim:permissions>
+
+  <rim:splash src="images/splash-768x1280.png" />
+  <rim:splash src="images/splash-1280x768.png" />
+
+  <content src="index.html" rim:allowInvokeParams="true"/>
+  <access uri="*" subdomains="true" />
+
+  <feature id="blackberry.app">
+    <param name="backgroundColor" value="0xFFFFFFFF" />
+    <param name="orientation" value="landscape" />
+  </feature>
+
+  <feature id="blackberry.ui.dialog"/>
+  <feature id="blackberry.identity" required="true" version="1.0.0.0"/>
+</widget>

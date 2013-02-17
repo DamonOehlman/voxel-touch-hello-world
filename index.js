@@ -5,8 +5,8 @@ var player = require('voxel-player')
 var createTerrain = require('voxel-perlin-terrain')
 var highlighter = require('voxel-highlight')
 var createTree = require('voxel-forest')
-var texturePath = require('painterly-textures')(__dirname)
 var blockSelector = toolbar({el: '#tools'})
+var touchy = require('voxel-touchy')
 
 // setup the game and add some trees
 var game = createGame({
@@ -19,7 +19,7 @@ var game = createGame({
     'grass',
     'plank'
   ],
-  texturePath: texturePath,
+  texturePath: './images/textures/',
   worldOrigin: [0, 0, 0],
   controls: { discreteFire: true }
 })
@@ -30,7 +30,13 @@ var container = document.querySelector('#container')
 
 game.appendTo(container)
 
-for (var i = 0; i < 20; i++) createTree(game, { bark: 5, leaves: 4 })
+// initialise touchy
+var touches = touchy(game)
+
+touches.pipe(game.controls)
+touches.rotation.pipe(game.controls.createWriteRotationStream());
+
+// for (var i = 0; i < 20; i++) createTree(game, { bark: 5, leaves: 4 })
 
 // create the player from a minecraft skin file and tell the
 // game to use it as the main player
