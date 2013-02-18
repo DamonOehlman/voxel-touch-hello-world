@@ -1,38 +1,65 @@
-# voxel-hello-world
+# voxel-touch-hello-world
 
-Learn more at http://voxeljs.com
+This is a BB10ified version of the [voxel-hello-world](/maxogden/voxel-hello-world) repo.  You can learn all about voxel at: <http://voxeljs.com>.
 
-# Using it as a module
+## Compiling for the BB10
 
-`npm install voxel-hello-world`
+OK, strap yourself in.  At this stage, this repo uses [jake](/mde/jake) to make working with the BB10 development tools a little more streamlined.  Eventually this will be made into a separate tool, but for the moment it works.
 
-```javascript
-var game = require('voxel-hello-world')
+### Step 1: Install the BB10 WebWorks Framework
+
+At this stage, this uses the BB10 Webworks Framework but eventually a [cordova](http://cordova.apache.org/) port will also be provided.
+
+So, get on and install Webworks:
+
+<http://developer.blackberry.com/html5/documentation/blackberry10_webworkssdk_release_notes.html>
+
+There's a few steps in getting going with webworks, and the documentation isn't too bad but it does take a little work.
+
+## Step 2: Install Deps
+
+As with any node project, you are going to need to have your dependencies covered.  So:
+
+1. Install local deps using `npm install`
+2. Make sure you have browserify available globally as it's used to compile the app: `[sudo] npm install -g browserify`
+3. Also have jake installed globally: `[sudo] npm install -g jake`
+
+## Step 3: Update Configuration
+
+The jake build script makes use of a `config.json` file which you should tweak to match your environment.  This is mine, which should give you an idea of where to start and what to change:
+
+```json
+{
+    "webworksPath": "/development/tools/bb-devtools/webworks-1.0.4.5",
+    "devicePass": "password",
+    "deviceIP": "169.254.0.1"
+}
 ```
 
-# Get it running on your machine
+## Step 4: Browserify, Build and Push
 
-The first time you set up, you should install the required npm packages:
+If the BB10 dev tools have correctly been configured, and you have all the required node dependencies installed, then you should now be able to browserify, build and push the application to a BB10 device.
 
-```
-cd voxel-hello-world
-npm install
-npm install browserify -g
-```
-
-Then run the start script (which you'll need to do every time you want to run the demo):
+First, browserify `index.js` to `game.js`:
 
 ```
-npm start
+browserify index.js > game.js
 ```
 
-Then point your browser to [http://localhost:8080](http://localhost:8080) and have fun!
+Then run jake to automate the `bbwp` build process:
 
-## How does this work?
+```
+jake build
+```
 
-voxel.js modules use [browserify](http://browserify.org) for packaging modules together into game bundles. This means that every time you change code in your game you have to build a new bundle in order to test it out. Luckily this is very easy and is automated. When you run the `npm start` script, it runs a local server: when the browser requests `index.js`, it compiles it serverside and then serves up the compiled version.
+If successful, you can then run the push script to push it to a device:
 
-The upshot is, as long as you're running the `npm start` script in the background, you can save your changes to index.js and reload the game to see the new code in action, without having to have a build step in between. (If you'd like to change the start script, it's contained in the `package.json` file in the root directory.)
+```
+jake push
+```
+
+From a workflow perspective, the build and push can be combined into a single step by calling `jake build push` also.
+
 
 ## license
 

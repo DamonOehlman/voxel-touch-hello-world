@@ -1,13 +1,5 @@
 {
     "webworksPath": "/development/tools/bb-devtools/webworks-1.0.4.5",
     "devicePass": "password",
-    "deviceIP": "169.254.0.1",
-
-    "app": {
-      "name": "Voxel.js",
-      "description": "Voxel.js Blackberry Client",
-      "permissions": [],
-      "domains": [],
-      "author": "Damon Oehlman"
-    }
+    "deviceIP": "169.254.0.1"
 }
